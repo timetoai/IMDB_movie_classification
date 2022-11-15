@@ -1,0 +1,7 @@
+text_method,img_method,classif_method,f1_score
+resnet50_features,bag_of_words,LogisticRegression,0.67489
+resnet50_features,tf_idf,LogisticRegression,0.63171
+resnet50_features,spacy_approach,LogisticRegression,0.63050
+resnet50_features,bag_of_words,CatBoostClassifier,0.57421
+resnet50_features,tf_idf,CatBoostClassifier,0.57266
+resnet50_features,spacy_approach,CatBoostClassifier,0.59685

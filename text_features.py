@@ -31,8 +31,9 @@ def tf_idf(texts, tfid=None):
         res = tfid.transform(texts)
     return res.toarray(), tfid
 
-def spacy_appoach(texts, nlp=None):
+def spacy_approach(texts, nlp=None):
     if nlp is None:
         nlp = spacy.load("en_core_web_sm")
-    text2vector = lambda x: nlp(x).vector
+    base_shape = nlp("nlp").vector.shape
+    text2vector = lambda x: nlp(x).vector if x else np.zeros(base_shape)
     return np.row_stack([text2vector(text) for text in texts]), nlp
