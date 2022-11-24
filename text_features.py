@@ -5,7 +5,10 @@ import pandas as pd
 import spacy
 
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
 from gensim.models import Word2Vec
+
+from sentence_transformers import SentenceTransformer
 
 
 def bag_of_words(texts, cv=None, n_words=1):
@@ -68,3 +71,25 @@ def word2vec_approach(texts):
             text_embeds.append(np.concatenate(sentence_emb))
 
     return np.row_stack(text_embeds), model
+
+
+def transformer_clip(texts, data_type_text=False):
+    model = SentenceTransformer('clip-ViT-B-32')
+    if data_type_text:
+        embbedding = [model.encode(text[0:77]) for text in texts]
+    else:
+        embbedding = [model.encode(text) for text in texts]
+    return np.row_stack(embbedding), model
+
+
+def transformer_distil_bert(texts, data_type_text=False):
+    model = SentenceTransformer('flax-sentence-embeddings/multi-qa_v1-distilbert-mean_cos')
+    if data_type_text:
+        embbedding = [model.encode(text[0:77]) for text in texts]
+    else:
+        embbedding = [model.encode(text) for text in texts]
+    return np.row_stack(embbedding), model
+    
+
+
+
